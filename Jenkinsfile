@@ -25,7 +25,7 @@ pipeline {
             steps {
                 sh 'pwd;cd terraform1/ ; terraform init'
                 sh "pwd;cd terraform1/ ; terraform plan -out tfplan"
-                sh 'pwd;cd terraform1/ ; terraform show -no-color tfplan > tfplan.txt'
+                sh 'pwd;cd terraform1/ ; terraform show -no-color tfplan > tfplan1.txt'
             }
         }
         stage('Approval') {
@@ -37,7 +37,7 @@ pipeline {
 
            steps {
                script {
-                    def plan = readFile 'terraform1/tfplan.txt'
+                    def plan = readFile 'terraform1/tfplan1.txt'
                     input message: "Do you want to apply the plan?",
                     parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
                }
